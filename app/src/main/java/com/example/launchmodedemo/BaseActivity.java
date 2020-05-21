@@ -31,7 +31,6 @@ public class BaseActivity extends AppCompatActivity {
   public void onBackPressed() {
     super.onBackPressed();
     removeActivity();
-    checkActivityJump();
   }
 
   private void checkActivityJump() {
@@ -39,6 +38,7 @@ public class BaseActivity extends AppCompatActivity {
       Log.i(
           TAG,
           "onStart: " + ActivityTaskManager.getInstance().getLastActivity().getClass().getName());
+      // 如果当前
       if (!ActivityTaskManager.getInstance()
           .getLastActivity()
           .getClass()
