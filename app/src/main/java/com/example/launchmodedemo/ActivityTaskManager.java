@@ -1,6 +1,7 @@
 package com.example.launchmodedemo;
 
 import android.app.Activity;
+import androidx.annotation.NonNull;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /** Activity栈管理类，当Activity被创建是压栈，销毁时出栈 */
@@ -22,7 +23,7 @@ public class ActivityTaskManager {
     return SINGLETON.get();
   }
 
-  public void put(Activity targetActivity) {
+  public void put(@NonNull Activity targetActivity) {
     boolean hasActivity = false;
     for (Activity activity : ACTIVITY_ARRAY) {
       if (targetActivity == activity) {
@@ -35,11 +36,13 @@ public class ActivityTaskManager {
     }
   }
 
-  public void remove(Activity targetActivity) {
+  public void remove(@NonNull Activity targetActivity) {
     for (Activity activity : ACTIVITY_ARRAY) {
-      if (targetActivity == activity) {
-        ACTIVITY_ARRAY.remove(targetActivity);
-        break;
+      if (targetActivity != null) {
+        if (targetActivity == activity) {
+          ACTIVITY_ARRAY.remove(targetActivity);
+          break;
+        }
       }
     }
   }
@@ -57,8 +60,15 @@ public class ActivityTaskManager {
     }
   }
 
-  public void removeSingleInstanceActivity(Activity targetActivity) {
-    SINGLE_INSTANCE_ACTIVITY_ARRAY.remove(targetActivity);
+  public void removeSingleInstanceActivity(@NonNull Activity targetActivity) {
+    for (Activity activity : SINGLE_INSTANCE_ACTIVITY_ARRAY) {
+      if (targetActivity != null) {
+        if (targetActivity == activity) {
+          SINGLE_INSTANCE_ACTIVITY_ARRAY.remove(targetActivity);
+          break;
+        }
+      }
+    }
   }
 
   public CopyOnWriteArrayList<Activity> getSingleInstanceActivityArray() {

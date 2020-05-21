@@ -30,6 +30,7 @@ public class MainActivityC extends BaseActivity implements View.OnClickListener 
     switch (v.getId()) {
       case R.id.constraintLayout:
         startActivity(new Intent(this, MainActivityA.class));
+        overridePendingTransition(0, 0);
         break;
       default:
         break;
